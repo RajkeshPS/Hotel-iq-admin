@@ -74,8 +74,8 @@ function App() {
       const bookData = await getHotelBookings(hotelId);
       setBookings(bookData);
       const confirmed = bookData.filter(b => b.status === 'confirmed').length;
-      const checkedIn = bookData.filter(b => b.status === 'checked_in').length;
-      const checkedOut = bookData.filter(b => b.status === 'checked_out').length;
+      const checkedIn = bookData.filter(b => b.status === 'checked_in' || b.status === 'checked-in').length;
+      const checkedOut = bookData.filter(b => b.status === 'checked_out' || b.status === 'checked-out').length;
       setBookingStats({ confirmed, checkedIn, checkedOut });
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -98,7 +98,7 @@ function App() {
     let newStatus;
     if (!currentStatus || currentStatus === 'confirmed' || currentStatus === 'pending') {
       newStatus = 'checked_in';
-    } else if (currentStatus === 'checked_in') {
+    }else if (currentStatus === 'checked_in' || currentStatus === 'checked-in') {      
       newStatus = 'checked_out';
     } else {
       return; // Already checked out
